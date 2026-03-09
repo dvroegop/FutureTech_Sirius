@@ -1,7 +1,5 @@
-﻿using System.Text.Json;
-using Microsoft.Extensions.AI;
+﻿using Microsoft.Extensions.AI;
 using ModelContextProtocol.Client;
-using ModelContextProtocol.Protocol;
 using SCC.Deepthought.Application;
 using SCC.Deepthought.Domain;
 
@@ -91,7 +89,6 @@ public class TicketValidator(
 
     public async Task<string> ValidateTicketWithToolsAsync(TicketSummary ticketSummary)
     {
-        
         return await Task.FromResult("No idea...");
     }
 }

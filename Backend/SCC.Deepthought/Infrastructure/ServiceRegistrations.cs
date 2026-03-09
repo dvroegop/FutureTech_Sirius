@@ -12,8 +12,5 @@ public static class ServiceRegistrations
 
         services.AddTransient<ITicketValidatorController, TicketValidatorController>();
         services.AddTransient<ITicketValidator, TicketValidator>();
-
-        services.AddDbContext<TicketDbContext>(options =>
-            options.UseSqlite("Data Source=tickets.db"));
     }
 }

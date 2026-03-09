@@ -26,7 +26,6 @@ builder.Services.AddSingleton(azureAiSecrets);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 ServiceRegistrations.RegisterServices(builder.Services);
@@ -53,31 +52,10 @@ var azureClient = new AzureOpenAIClient(new Uri(endPoint), new ApiKeyCredential(
 var chatClient = azureClient.GetChatClient(deploymentName);
 IChatClient client = chatClient.AsIChatClient();
 
-var mcpClient = await McpClient.CreateAsync(clientTransport);
-var allTools = await mcpClient.ListToolsAsync();
-foreach (var tool in allTools )
-{
-    Console.WriteLine($"{tool.Name} ({tool.Description})");
-}
-
-var chatOptions = new ChatOptions()
-{
-    ToolMode = ChatToolMode.Auto,
-    Tools = [.. allTools]
-};
-
-builder.Services.AddSingleton(mcpClient);
 builder.Services.AddSingleton(client);
-builder.Services.AddSingleton(chatOptions);
 
 var app = builder.Build();
 
-// Ensure the SQLite database and tables are created
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<SCC.Deepthought.Infrastructure.TicketDbContext>();
-    db.Database.EnsureCreated();
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
