@@ -1,0 +1,28 @@
+@SSC.Deepthought_HostAddress = http://localhost:5079
+
+POST {{SSC.Deepthought_HostAddress}}/validateTicket/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "customerName": "Zaphod Beeblebrox",
+  "type": 1,
+  "description": "I bought a ticket for the Total Perspective Vortex. But it only showed me what I already knew: I am super cool! So I paid 500 Altarian Dollars for nothing."
+}
+
+###
+
+
+POST {{SSC.Deepthought_HostAddress}}/validateTicket/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "customerName": "Dennis Vroegop",
+  "type": 1,
+  "description": "My Microsoft Mouse doesn't work properly. It seems to fail every now and then."
+}
+
+###

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Backend/MCPServer/MCPServer.csproj" Id="8d8fe8ed-68f0-41e5-bbc6-2b1954cf9675" />
+  <Project Path="Backend/SCC.Deepthought/SCC.Deepthought.csproj" Id="af486c16-4c6d-4d59-8ada-5d92d29fc5e8" />
+</Solution>
