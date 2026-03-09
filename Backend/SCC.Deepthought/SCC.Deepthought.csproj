@@ -18,8 +18,8 @@
     <PackageReference Include="Microsoft.Extensions.AI" Version="10.3.0" />
     <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.3.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.3" />
-    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.0.0" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.12.54" />
+    <PackageReference Include="ModelContextProtocol.AspNetCore" Version="1.1.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.13.2" />
   </ItemGroup>
 
   <ItemGroup>

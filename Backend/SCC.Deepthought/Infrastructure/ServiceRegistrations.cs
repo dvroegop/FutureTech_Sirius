@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SCC.Deepthought.AI;
+﻿using SCC.Deepthought.AI;
 using SCC.Deepthought.Controllers;
 
 namespace SCC.Deepthought.Infrastructure;

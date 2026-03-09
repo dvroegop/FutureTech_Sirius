@@ -1,5 +1,4 @@
 using System.ClientModel;
-using System.Reflection.Metadata.Ecma335;
 using Azure;
 using Azure.AI.OpenAI;
 using Microsoft.Extensions.AI;
