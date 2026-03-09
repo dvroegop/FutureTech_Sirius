@@ -49,10 +49,10 @@ string key = azureAiSecrets.ApiKey;
 var deploymentName = azureAiSecrets.DeploymentName;
 
 var azureClient = new AzureOpenAIClient(new Uri(endPoint), new ApiKeyCredential(key));
-var chatClient = azureClient.GetChatClient(deploymentName);
-IChatClient client = chatClient.AsIChatClient();
+var chatClient = azureClient.GetChatClient(deploymentName).AsIChatClient();
 
-builder.Services.AddSingleton(client);
+
+builder.Services.AddSingleton(chatClient);
 
 var app = builder.Build();
 

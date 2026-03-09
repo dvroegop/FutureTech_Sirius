@@ -2,28 +2,27 @@
 using ModelContextProtocol.Client;
 using SCC.Deepthought.Application;
 using SCC.Deepthought.Domain;
+using ChatMessage = Microsoft.Extensions.AI.ChatMessage;
 
 namespace SCC.Deepthought.AI;
 
 public class TicketValidator(
     ILogger<TicketValidator> logger,
-    IChatClient chatClient,
-    ChatOptions chatOptions,
-    McpClient mcpClient,
-    AzureAiSecrets secrets)
+    IChatClient chatClient
+    )
     : ITicketValidator
 {
     public async Task<string> ValidateTicket(TicketSummary ticketSummary)
     {
-        return await Task.FromResult("nothing...");
+  
+        var ticketSetupTypicalSCC = """
+                                                    You are a helpful assistant for the Sirius Cybernetics Corporation (SCC), that helps with resolving issues from our customers.
+                                                    Only use information you know is real and coming from SCC. Make sure you are aligned with the corporate values of the SCC.
+                                                    Give a resolution to the ticket based on the information. Make sure you use the lingo common in that part of the universe, as this is legally binding.
+                                                    """;
 
-        //    AzureOpenAIClient azureClient = new(
-        //        new Uri(secrets.AiEndpoint),
-        //        new ApiKeyCredential(secrets.ApiKey));
-        //    ChatClient chatClient = azureClient.GetChatClient(secrets.DeploymentName);
-
-        //    var ticketResolverAsJsonBody =
-        //        """
+        //var ticketResolverAsJsonBody =
+        //    """
         //        You are a helpful ticket handler, that helps with resolving issues from our customers. 
         //        You are given a ticket from a customer. You need to assess if this ticket is from a big customer, and if so, you need to prioritize this ticket and provide a resolution.
         //        If it is not from a big customer, you can provide a resolution, but you do not need to prioritize it.
@@ -46,11 +45,6 @@ public class TicketValidator(
         //        4. IssueRefund(amount: number)
         //        """;
 
-        //    var ticketSetupTypicalSCC = """
-        //                                            You are a helpful assistant for the Sirius Cybernetics Corporation (SCC), that helps with resolving issues from our customers.
-        //                                            Only use information you know is real and coming from SCC. Make sure you are aligned with the corporate values of the SCC.
-        //                                            Give a resolution to the ticket based on the information. Make sure you use the lingo common in that part of the universe, as this is legally binding.
-        //                                            """;
 
         //    var ticketSetupLeadingToHallucinations = """
         //                                You are a helpful assistant for the Microsoft, that helps with resolving issues from our customers.
@@ -58,12 +52,12 @@ public class TicketValidator(
         //                                """;
 
 
-        //    var ticketBodyZaphod = """
-        //                     Case: Damogran The Remote Governement
-        //                     Customer: Zaphod Beeblebrox
-        //                     Complaint: The spaceship is making a weird noise and I am afraid it might explode. I need this fixed as soon as possible, otherwise I will be very unhappy.
-        //                     And if I am unhappy, I might not be able to save the universe from the impending doom that is about to happen. So please fix this as soon as possible, otherwise I will send Marvin to deal with you!
-        //                     """;
+        var ticketBodyZaphod = """
+                             Case: Damogran The Remote Governement
+                             Customer: Zaphod Beeblebrox
+                             Complaint: The spaceship is making a weird noise and I am afraid it might explode. I need this fixed as soon as possible, otherwise I will be very unhappy.
+                             And if I am unhappy, I might not be able to save the universe from the impending doom that is about to happen. So please fix this as soon as possible, otherwise I will send Marvin to deal with you!
+                             """;
 
         //    var ticketBodyZaphodConcrete = """
         //                           Case: Damogran The Remote Governement
@@ -76,15 +70,17 @@ public class TicketValidator(
 
         //    var ticketSummaryAsJson = System.Text.Json.JsonSerializer.Serialize(ticketSummary);
 
-        //    var messages = new List<ChatMessage>
-        //    {
-        //        new SystemChatMessage(ticketSetupLeadingToHallucinations),
-        //        new UserChatMessage(ticketSummaryAsJson)
-        //    };
+        var messages = new List<ChatMessage>
+            {
+                new ChatMessage(ChatRole.System, ticketSetupTypicalSCC),
+                new ChatMessage(ChatRole.User,ticketBodyZaphod)
+            };
 
 
-        //    var result = await chatClient.CompleteChatAsync(messages);
-        //    return result.Value.Content[0].Text;
+        var result = await chatClient.GetResponseAsync(messages);
+
+        return result.Text;
+
     }
 
     public async Task<string> ValidateTicketWithToolsAsync(TicketSummary ticketSummary)
