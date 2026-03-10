@@ -7,8 +7,8 @@ namespace MCPServer;
 public class TicketCreator
 {
     [McpServerTool]
-    [Description("Creates a ticket in the backend.")]
-    public async Task CreateTicket(string customerName, string description)
+    [Description("Creates a ticket in the backend. Returns the date of creation.")]
+    public async Task<string> CreateTicket(string customerName, string description)
     {
         // Here you would have logic to create a ticket in your system.
         // For demonstration purposes, we'll just print the ticket details.
@@ -19,6 +19,7 @@ public class TicketCreator
         await Task.Delay(1000);
 
         Console.WriteLine("Ticket created successfully.");
+        return await Task.FromResult(DateTime.Now.ToLongDateString());
     }
 
     [McpServerTool]
